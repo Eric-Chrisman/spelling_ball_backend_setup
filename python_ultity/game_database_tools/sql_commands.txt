@@ -1,0 +1,58 @@
+cur.execute("""
+    CREATE TABLE Words (
+        word_id INTEGER PRIMARY KEY AUTOINCREMENT,
+        name TEXT NOT NULL UNIQUE,
+        syllable_count INTEGER,
+        letter_count INTEGER,
+        is_real BOOLEAN NOT NULL
+    );
+    """)
+
+    cur.execute("""
+    CREATE TABLE Syllables (
+        syllable_id INTEGER PRIMARY KEY AUTOINCREMENT,
+        syllable TEXT NOT NULL UNIQUE,
+        syllable_type TEXT
+    );
+    """)
+
+    cur.execute("""
+    CREATE TABLE Syllable_Indexes (
+        syllable_id INTEGER NOT NULL,
+        word_id INTEGER NOT NULL,
+        position INTEGER NOT NULL,
+        PRIMARY KEY (syllable_id, word_id, position),
+        FOREIGN KEY (syllable_id) REFERENCES Syllables(syllable_id),
+        FOREIGN KEY (word_id) REFERENCES Words(word_id)
+    );
+    """)
+
+    cur.execute("""
+    CREATE TABLE Problem_Sets (
+        set_id INTEGER PRIMARY KEY AUTOINCREMENT,
+        name TEXT NOT NULL UNIQUE
+    );
+    """)
+
+    cur.execute("""
+    CREATE TABLE Problem_Set_Words (
+        set_id INTEGER NOT NULL,
+        word_id INTEGER NOT NULL,
+        PRIMARY KEY (set_id, word_id),
+        FOREIGN KEY (set_id) REFERENCES Problem_Sets(set_id),
+        FOREIGN KEY (word_id) REFERENCES Words(word_id)
+    );
+    """)
+
+    SELECT w.word_id, w.name, w.is_real
+		FROM Words w
+		WHERE w.letter_count BETWEEN 1 AND 20
+		AND w.syllable_count BETWEEN 1 AND 20
+		AND EXISTS (
+			SELECT 1
+			FROM Syllable_Indexes si
+			JOIN Syllables s ON s.syllable_id = si.syllable_id
+			WHERE si.word_id = w.word_id
+			AND s.syllable_type IN ("Open", "Closed", "Magic_e", "R_controlled", "Vowel Team", "Consonant-le", "Diphthong")
+			LIMIT 1
+		);

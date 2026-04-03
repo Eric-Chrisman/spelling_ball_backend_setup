@@ -1,0 +1,12 @@
+Here is a citation you can use in APA format, which is the most common for academic papers:
+In-text citation:
+(Anthropic, 2025)
+Reference entry:
+Anthropic. (2025). Claude Sonnet 4.6 [Large language model]. https://claude.ai
+
+If your paper requires you to document the specific prompt you used, you can note it as something like:
+
+The following prompt was submitted to Claude Sonnet 4.6 (Anthropic, 2025): "Give me a list of spelling words for 1 syllable, 2 syllable, 3 syllable, and 4 syllable words for all ages up to 6th grade, at least 300 for each."
+
+
+A few things worth mentioning for academic honesty: some journals and professors also ask you to note the date you accessed or generated the content (since AI outputs are not reproducible), so you may want to add February 25, 2025 as the access date. Also check whether your institution has a specific AI use policy — some schools have their own required citation format for AI-generated content.
